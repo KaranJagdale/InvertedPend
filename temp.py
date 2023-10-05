@@ -10,5 +10,6 @@ def temp():
 
 temp()
 
-b = [2,4,1]
-print(b.index(4))
+b = np.array([2,4,1])
+c = np.where(b == 4)[0]
+print((c[0]))

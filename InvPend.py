@@ -32,10 +32,10 @@ def DynSS(y, t, m,l,k,Tau,g):
     Theta, Omega = y
     dydt = [Omega, -1.5*g/l*np.sin(Theta) - 3*Tau/m/l**2 - 3*k*Omega/m/l**2]
     return dydt
-y0 = [pi,0]
-Tau = 0
-sol = odeint(DynSS, y0, [0, Ts, 2*Ts], args=(m,l,k,Tau,g))
-print(sol[:,0])
+#y0 = [pi,0]
+# Tau = 0
+# sol = odeint(DynSS, y0, [0, Ts, 2*Ts], args=(m,l,k,Tau,g))
+# print(sol[:,0])
 def nextState(y,Tau):
     y0 = y
     sol = odeint(DynSS, y0, [0, Ts], args=(m,l,k,Tau,g))
@@ -50,10 +50,12 @@ def Q_learning(Q_new):
     Tau = 0
     Iterations = 1000000 
     eps = 0.1
-    TauInd = TauDisc.index(Tau)
+    TauInd = np.where(TauDisc == Tau)[0][0]
+    ThetaHist = [Theta]
     for i in range(Iterations):
         #First find the next state
         Theta_n, Omega_n = nextState([Theta, Omega], Tau)
+        ThetaHist.append(Theta_n)
 
         #Update the Q function
         #First find the closest Theta value in the discretized theta to the current Theta and Theta_n
@@ -64,13 +66,19 @@ def Q_learning(Q_new):
         Theta_nInd = np.argmin(diff)
         
 
-        Q_new[ThetaInd, TauInd] = (1-eps)*Q_new(ThetaInd, TauInd) + eps*(reward(ThetaDisc(ThetaInd), Tau) + Gamma*Q_new[Theta_nInd, :].max())
+        Q_new[ThetaInd, TauInd] = (1-eps)*Q_new[ThetaInd, TauInd] + eps*(reward(ThetaDisc[ThetaInd], Tau) + Gamma*Q_new[Theta_nInd, :].max())
         #generate a random action for the next instant
         TauInd = np.random.randint(res)
+        Tau = TauDisc[TauInd]
+        Theta, Omega = Theta_n, Omega_n
+        if i%100000 == 0:
+            print(i)
+    return Q_new, ThetaHist
 
-Q_learning(Q_new)
-        
-        
+Q, ThetaHist = Q_learning(Q_new)
+plt.plot(ThetaHist)        
+plt.show()
+
 
 
 
