@@ -1,0 +1,1 @@
+Here, I have tried to control the inverted pendulum at its unstable equilibrium point, i.e., upright position using various control techniques. As of now, I have implemented a PID and unconventinal method of reinforcement learning for controling the inverted pendulumn. I am planning to add MPC mplementation for the same soon.
