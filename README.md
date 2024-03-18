@@ -5,8 +5,8 @@ Here, I have tried to control the inverted pendulum at its unstable equilibrium 
 [InvPendProd.ipynb](https://github.com/KaranJagdale/InvertedPend/blob/main/InvPendProd.ipynb) contains the required code. The pendulum model used is explained in [controller-comparison](https://github.com/KaranJagdale/controller_comparison). We apply Q-learning to obtain the Q-values of all the state-action pairs. 
 
 The state of the inverted pendulum is given by $\theta$ and the control input is the torque $\tau$.
-First we need to discretize the system as Q-learning cannot directly be appplied on a continuous system. We discretize $\theta$ into $100$ values between $[0, 2\pi)$, i.e., the discretized states are, $\{0, 0.628, 1.256, \dots, 5.652\}$. The discretized control, $\tau$ can take three values $\{-\tau_m, 0, \tau_m}$. Where $\tau_m$ is twice the torque required for maintaining the pendulum in the horizontal position and is given by,
-$$\tau_m = mgl.$$
+First we need to discretize the system as Q-learning cannot directly be appplied on a continuous system. We discretize $\theta$ into $100$ values between $[0, 2\pi)$, i.e., the discretized states are, $\{0, 0.628, 1.256, \dots, 5.652\}$. The discretized control, $\tau$ can take three values $\{-\tau_m, 0, \tau_m}$. Where $\tau_m$ is four times the torque required for maintaining the pendulum in the horizontal position and is given by,
+$$\tau_m = 2mgl.$$
 
 Where, $m, l, g$ are mass of the pendulum, length of the pendulum and the acceleration due to gravity, respectively.
 
@@ -18,6 +18,7 @@ $$Q_{k+1}(s,a) = (1 - \epsilon_k) Q_k(s,a) + \epsilon_k (r(s,a) + \gamma \max_{a
 Otherwise,
 $$Q_{k+1}(s,a) = Q_k(s,a), \text{ if } (s_k, a_k) \neq (s,a)$$
 
-In the above equation, $\epsilon_k$ is the tuning parameter that determines the weight of the current Q-value and the weight of the information obtained by the experiimental data. Generally, $\epsilon_k$ is chosen close to zero so that the current Q-value has higher weight than the information obtained from the data in the update equation. $\gamma$ is called the discount factor and its value decides how the reward of future actions diminish over time in deciding the current optimal action. In the current setting, $\epsilon_k = 0.1$ and $\gamma = 0.9$ is used.
+In the above equation, $\epsilon_k$ is the tuning parameter that determines the weight of the current Q-value and the weight of the information obtained by the experiimental data. Generally, $\epsilon_k$ is chosen close to zero so that the current Q-value has higher weight than the information obtained from the data in the update equation. $\gamma$ is called the discount factor and its value decides how the reward of future actions diminish over time in deciding the current optimal action. In the current setting, $\epsilon_k = 0.1$ and $\gamma = 0.9$ is used. Following video shows the result.
+![](https://github.com/KaranJagdale/InvertedPend/blob/main/Invpend_QLearn.gif)
 
 
