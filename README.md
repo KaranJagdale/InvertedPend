@@ -5,7 +5,7 @@ Here, I have tried to control the inverted pendulum at its unstable equilibrium 
 [InvPendProd.ipynb](https://github.com/KaranJagdale/InvertedPend/blob/main/InvPendProd.ipynb) contains the required code. The pendulum model used is explained in [controller-comparison](https://github.com/KaranJagdale/controller_comparison). We apply Q-learning to obtain the Q-values of all the state-action pairs. 
 
 The state of the inverted pendulum is given by $\theta$ and the control input is the torque $\tau$.
-First we need to discretize the system as Q-learning cannot directly be appplied on a continuous system. We discretize $\theta$ into $100$ values between $[0, 2\pi)$, i.e., the discretized states are, $\{0, 0.628, 1.256, \dots, 5.652\}$. The discretized control, $\tau$ can take three values $\{-\tau_m, 0, \tau_m}$. Where $\tau_m$ is four times the torque required for maintaining the pendulum in the horizontal position and is given by,
+First we need to discretize the system as Q-learning cannot directly be appplied on a continuous system. We discretize $\theta$ into $100$ values between $[0, 2\pi)$, i.e., the discretized states are, $\{0, 0.628, 1.256, \dots, 5.652\}$. The discretized control, $\tau$ can take nine values, i.e., $\{-\tau_m, -\frac{3 \tau_m}{4}, \dots,  0, \dots, \frac{3 \tau_m}{4} \tau_m\}$. Where $\tau_m$ is four times the torque required for maintaining the pendulum in the horizontal position and is given by,
 $$\tau_m = 2mgl.$$
 
 Where, $m, l, g$ are mass of the pendulum, length of the pendulum and the acceleration due to gravity, respectively.
