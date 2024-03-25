@@ -12,7 +12,7 @@ Where, $m, l, g$ are mass of the pendulum, length of the pendulum and the accele
 
 The reason for having less resolution in torque, i.e., actions is to keep the state-action pairs less and to get somwhat satisfactory results in less training. 
 
-We perform episodic Q-learning to learn the Q-function. To genetate the data for Q-learning we apply random input action to the pendulum. An episode is marked complete if the pendulum reaches its target position or the number of samples become more than a threshold value. We perform training for $15000$ episodes with one episode, with each episode have maximum $800$ time instants. At each instance in the episide, we update the Q-function as,
+We perform episodic Q-learning to learn the Q-function. To genetate the data for Q-learning we apply random input action to the pendulum. An episode is marked complete if the pendulum reaches its target position or the number of samples become more than a threshold value. We perform training for $150000$ episodes with one episode, with each episode have maximum $800$ time instants. At each instance in the episide, we update the Q-function as,
 $$Q_{k+1}(s,a) = (1 - \epsilon_k) Q_k(s,a) + \epsilon_k (r(s,a) + \gamma \max_{a'}(Q_k(s',a')), \text{ if } (s_k, a_k) = (s, a) \text{ and } s_{k+1} = s'$$
  
 Otherwise,
